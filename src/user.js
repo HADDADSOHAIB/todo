@@ -27,7 +27,7 @@ const user = (name) => {
   const getPrimiteProjects = () => {
     const tempArray = [];
     projects.forEach(e => {
-      tempArray.push({ title: e.title, description: e.description, todos: e.getTodos });
+      tempArray.push({ title: e.title, description: e.description, todos: e.getTodos() });
     });
     return tempArray;
   };
