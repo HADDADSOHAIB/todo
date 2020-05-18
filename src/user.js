@@ -24,6 +24,14 @@ const user = (name) => {
     projects.forEach(e => e.checkOverdues());
   };
 
+  const getPrimiteProjects = () => {
+    const tempArray = [];
+    projects.forEach(e => {
+      tempArray.push({ title: e.title, description: e.description, todos: e.getTodos });
+    });
+    return tempArray;
+  };
+
   const getProjects = () => projects;
 
   return {
@@ -33,6 +41,7 @@ const user = (name) => {
     getProject,
     getProjects,
     overdues,
+    getPrimiteProjects,
   };
 };
 

@@ -4,6 +4,7 @@ import './style.css';
 import project from './project';
 import todo from './todo';
 import user from './user';
+import save from './storageLogic';
 
 const userForm = () => `
 <div class="d-flex justify-content-center m-4">
@@ -34,10 +35,7 @@ if (!currentUser) {
 
     if (newName.trim() !== '') {
       const newUser = user(newName);
-      console.log(newUser);
-      window.localStorage.setItem('user', JSON.stringify(newUser));
-      console.log(window.localStorage.getItem('user'));
-      console.log(JSON.parse(window.localStorage.getItem('user')));
+      save(newUser);
     }
   });
 } else {
