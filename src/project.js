@@ -1,8 +1,6 @@
-import uid from 'uid';
 
-const project = (title, description) => {
-  const todoArr = [];
-  const id = uid(32);
+const project = (id, title, description) => {
+  let todoArr = [];
 
   const addTodo = (todo) => {
     todoArr.push(todo);
@@ -23,17 +21,21 @@ const project = (title, description) => {
     });
   };
 
-  const getTodos = () => todoArr;
+  const setTodos = (todos) => {
+    todoArr = todos;
+  };
 
   const getId = () => id;
 
   return {
     title,
     description,
+    todoArr,
+    id,
     addTodo,
     removeTodo,
     checkOverdues,
-    getTodos,
+    setTodos,
   };
 };
 

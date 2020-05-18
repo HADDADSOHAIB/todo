@@ -1,6 +1,6 @@
 import uid from 'uid';
 
-const todo = (title, description, dueDate, priority, notes) => {
+const todo = (projectId, title, description, dueDate, priority, notes) => {
   let status = 0;
   const id = uid(32);
   const getStatus = () => {
