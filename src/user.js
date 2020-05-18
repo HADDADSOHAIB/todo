@@ -20,6 +20,10 @@ const user = (name) => {
     return -1;
   };
 
+  const overdues = () => {
+    projects.forEach(e => e.checkOverdues());
+  };
+
   const getProjects = () => projects;
 
   return {
@@ -28,6 +32,7 @@ const user = (name) => {
     removeProject,
     getProject,
     getProjects,
+    overdues,
   };
 };
 
