@@ -43,7 +43,7 @@ if (!currentUser) {
       currentUser = user(newName);
       save(currentUser);
     }
-    window.location.assign('/dist/');
+    window.location.assign('/');
   });
 } else {
   currentUser = load();
