@@ -1,8 +1,8 @@
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import './style.css';
-import project from './project';
-import todo from './todo';
+// import project from './project';
+// import todo from './todo';
 import user from './user';
 import { save, load } from './storageLogic';
 
@@ -25,11 +25,11 @@ const userForm = () => `
 `;
 
 const projectFrom = (projects) => `
-<div class="d-flex justify-content-center m-4">
+<div class="d-flex justify-content-center m-4" id="projects">
   <div class="card" style="width: 25rem;">
     <div class="card-body">
       <select class="custom-select">
-        <option selected>Choose a project:</option>
+        <option value="0" selected>Choose a project:</option>
         ${projects.map(project => `<option value="${project.getId()}">${project.title}</option>`).join('')}
       </select>
     </div>
@@ -37,19 +37,9 @@ const projectFrom = (projects) => `
 </div>
 `;
 
-const todosFrom = (project) => `
-<div class="d-flex justify-content-center m-4">
-  <div class="card" style="width: 25rem;">
-    <div class="card-body">
-      ${project..map(project => `<option value="${project.getId()}">${project.title}</option>`).join('')}
-    </div>
-  </div>
-</div>
-`;
-
-const todo = (td) => `
+const todoForm = (td) => `
 <hr>
-<div class="d-flex flex-column ${td.priority}">
+<div class="d-flex flex-column ${td.priority} p-3">
   <div class="d-flex justify-content-between">
     <h6>
       ${td.title}
@@ -60,6 +50,19 @@ const todo = (td) => `
     ${td.description}
   </div>
   <small class="font-italic">${td.notes}</small>
+</div>
+`;
+
+const todosForm = (project) => `
+<div class="d-flex justify-content-center m-4" id="todos">
+  <div class="card" style="width: 25rem;">
+    <div class="card-body">
+    <div>
+      ${project.description}
+    </div>
+    ${project.getTodos().map(td => todoForm(td)).join('')}
+    </div>
+  </div>
 </div>
 `;
 
@@ -81,8 +84,16 @@ if (!currentUser) {
 } else {
   currentUser = load();
   document.querySelector('.content').insertAdjacentHTML('afterbegin', projectFrom(currentUser.getProjects()));
+  const project = currentUser.getProjects()[0];
+  document.querySelector('#projects').insertAdjacentHTML('afterend', todosForm(project));
 
-  document.querySelector('.custom-select').addEventListener('change', function(e) {
-    console.log(e.target.value);
+
+
+  document.querySelector('.custom-select').addEventListener('change', (e) => {
+    if (parseInt(e.target.value, 10) !== 0) {
+      document.querySelector('#todos').parentElement.removeChild(document.querySelector('#todos'));
+      const project = currentUser.getProjects().find(prt => prt.getId() === e.target.value);
+      document.querySelector('#projects').insertAdjacentHTML('afterend', todosForm(project));
+    }
   });
 }
