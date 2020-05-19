@@ -4,12 +4,16 @@ To-Do web application.
 
 ## Live demo
 
-[Live website](https://raw.githack.com/Fig77/tic-tac-toejs/init_commit/index.html/)
+[Live website](https://haddadsohaib.github.io/todo/)
 
 ### Usage
 
 If you want to test and use this project, you need to do:
-* `$ git clone https://github.com/Fig77/tic-tac-toejs/tree/init_commit`
+* `$ git clone https://github.com/HADDADSOHAIB/todo.git`
+
+and after that
+
+* `$ git checkout init_commit`
 
 after that you need to run the bundler
 * `$ npm install`
