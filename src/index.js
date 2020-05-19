@@ -60,7 +60,13 @@ if (!currentUser) {
     const tempNotes = document.querySelector('#notes');
     const tempPriority = document.querySelector('#custom-select');
     const tempDate = document.querySelector('#dueDate');
-    const tempTodo = todo(tempTitle.value, tempDescription.value, tempDate.value, tempPriority.value, tempNotes.value);
+    const tempTodo = todo(
+      tempTitle.value,
+      tempDescription.value,
+      tempDate.value,
+      tempPriority.value,
+      tempNotes.value,
+    );
     selectedProject.addTodo(tempTodo);
     document.querySelector('#todos .card-body').insertAdjacentHTML('beforeend', todoForm(tempTodo));
     save(currentUser);

@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import moment from 'moment';
 
 const userForm = () => `
