@@ -2,7 +2,7 @@ import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import './style.css';
 // import project from './project';
-// import todo from './todo';
+import todo from './todo';
 import user from './user';
 import { save, load } from './storageLogic';
 
@@ -86,7 +86,7 @@ const addTodoForm = () => `
         <label for="notes">notes</label>
         <textarea class="form-control" id="notes" rows="2"></textarea>
       </div>
-      <select class="custom-select">
+      <select id="custom-select">
         <option value="normal">normal</option>
         <option value="high">high</option>
         <option value="low">low</option>
@@ -95,7 +95,7 @@ const addTodoForm = () => `
         <label for="dueDate">Due Date</label>
         <input type="date" class="form-control" id="dueDate">
       </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="submit" class="btn btn-primary" id='submit-todo'>Submit</button>
     </form>
     </div>
   </div>
@@ -121,15 +121,27 @@ if (!currentUser) {
   document.querySelector('.content').insertAdjacentHTML('afterbegin', projectFrom(currentUser.getProjects()));
   const project = currentUser.getProjects()[0];
   document.querySelector('#projects').insertAdjacentHTML('afterend', todosForm(project));
-
+  let selectedProject = currentUser.getProjects()[0];
   document.querySelector('.new-todo-form').insertAdjacentHTML('beforeend', addTodoForm());
-
+  document.querySelector('#submit-todo').addEventListener('click', (e) => {
+    e.preventDefault();
+    const tempTitle = document.querySelector('#title').value;
+    const tempDescription = document.querySelector('#description').value;
+    const tempNotes = document.querySelector('#notes').value;
+    const tempPriority = document.querySelector('#custom-select').value;
+    const tempDate = document.querySelector('#dueDate').value;
+    const tempTodo = todo(tempTitle, tempDescription, tempDate, tempPriority, tempNotes);
+    selectedProject.addTodo(tempTodo);
+    document.querySelector('#todos .card-body').insertAdjacentHTML('beforeend', todoForm(tempTodo));
+    save(currentUser);
+  });
 
   document.querySelector('.custom-select').addEventListener('change', (e) => {
     if (parseInt(e.target.value, 10) !== 0) {
       document.querySelector('#todos').parentElement.removeChild(document.querySelector('#todos'));
       const project = currentUser.getProjects().find(prt => prt.getId() === e.target.value);
       document.querySelector('#projects').insertAdjacentHTML('afterend', todosForm(project));
+      selectedProject = project;
     }
   });
 }
