@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary, import/no-unresolved */
 import project from './project';
 
 const user = (name) => {

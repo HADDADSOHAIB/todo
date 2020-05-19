@@ -1,5 +1,5 @@
+/* eslint-disable no-nested-ternary, import/no-unresolved */
 import uid from 'uid';
-// import todo from './todo';
 
 const project = (title, description) => {
   let todoArr = [];

@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary, import/no-unresolved */
 import user from './user';
 import project from './project';
 import todo from './todo';

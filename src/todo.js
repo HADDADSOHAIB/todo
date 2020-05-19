@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary, import/no-unresolved */
 import uid from 'uid';
 
 const todo = (title, description, dueDate, priority, notes, status = 0) => {

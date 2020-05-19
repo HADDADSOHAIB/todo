@@ -1,5 +1,5 @@
 /* eslint-disable func-names */
-/* eslint-disable no-nested-ternary */
+/* eslint-disable no-nested-ternary, import/no-unresolved */
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import './style.css';
