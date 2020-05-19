@@ -1,7 +1,7 @@
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import './style.css';
-// import project from './project';
+import projectf from './project';
 import todo from './todo';
 import user from './user';
 import { save, load } from './storageLogic';
@@ -66,6 +66,29 @@ const todosForm = (project) => `
 </div>
 `;
 
+const addNewProject = () => `
+<div class="d-flex justify-content-center m-4" id="new-project">
+  <div class="card" style="width: 25rem;">
+    <div class="card-header d-flex justify-content-center">
+      Add new project
+    </div>
+    <div class="card-body">
+    <form>
+      <div class="form-group">
+        <label for="title-p">Title</label>
+        <input type="text" class="form-control" id="title-p">
+      </div>
+      <div class="form-group">
+        <label for="description-p">description</label>
+        <input type="text" class="form-control" id="description-p">
+      </div>
+      <button type="submit" class="btn btn-primary" id='submit-project'>Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
+`;
+
 const addTodoForm = () => `
 <div class="d-flex justify-content-center m-4" id="add-todo">
   <div class="card" style="width: 25rem;">
@@ -80,11 +103,11 @@ const addTodoForm = () => `
       </div>
       <div class="form-group">
         <label for="description">description</label>
-        <textarea class="form-control" id="description" rows="2"></textarea>
+        <input type='text' class="form-control" id="description">
       </div>
       <div class="form-group">
         <label for="notes">notes</label>
-        <textarea class="form-control" id="notes" rows="2"></textarea>
+        <input type='text' class="form-control" id="notes">
       </div>
       <select id="custom-select">
         <option value="normal">normal</option>
@@ -122,6 +145,7 @@ if (!currentUser) {
   const project = currentUser.getProjects()[0];
   document.querySelector('#projects').insertAdjacentHTML('afterend', todosForm(project));
   let selectedProject = currentUser.getProjects()[0];
+  document.querySelector('.new-todo-form').insertAdjacentHTML('beforeend', addNewProject());
   document.querySelector('.new-todo-form').insertAdjacentHTML('beforeend', addTodoForm());
   document.querySelector('#submit-todo').addEventListener('click', (e) => {
     e.preventDefault();
@@ -133,6 +157,17 @@ if (!currentUser) {
     const tempTodo = todo(tempTitle, tempDescription, tempDate, tempPriority, tempNotes);
     selectedProject.addTodo(tempTodo);
     document.querySelector('#todos .card-body').insertAdjacentHTML('beforeend', todoForm(tempTodo));
+    save(currentUser);
+  });
+  document.querySelector('#submit-project').addEventListener('click', (e) => {
+    e.preventDefault();
+    const tempTitle = document.querySelector('#title-p').value;
+    const tempDescription = document.querySelector('#description-p').value;
+    const tempProject = projectf(tempTitle, tempDescription);
+    currentUser.addProject(tempProject);
+    document.querySelector('.custom-select').insertAdjacentHTML('beforeend', `<option value="${tempProject.getId()}">${tempProject.title}</option>`);
+    document.querySelector('#title-p').value = '';
+    document.querySelector('#description-p').value = '';
     save(currentUser);
   });
 

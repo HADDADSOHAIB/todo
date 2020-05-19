@@ -2,7 +2,7 @@ import uid from 'uid';
 import todo from './todo';
 
 const project = (title, description) => {
-  let todoArr = [todo('title', 'description', 'dueDate', 'high', 'notes')];
+  let todoArr = [];
   const id = uid(32);
 
   const addTodo = (todo) => {
