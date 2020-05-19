@@ -4,7 +4,7 @@ import './style.css';
 import project from './project';
 import todo from './todo';
 import user from './user';
-import save from './storageLogic';
+import {save, load} from './storageLogic';
 
 const userForm = () => `
 <div class="d-flex justify-content-center m-4">
@@ -39,5 +39,8 @@ if (!currentUser) {
     }
   });
 } else {
-
+  const user = load();
+  console.log(user);
+  console.log(user.getProjects());
+  console.log(user.getProjects()[0].getTodos());
 }

@@ -3,7 +3,7 @@ import project from './project';
 const user = (name) => {
   const projects = [project('default project', 'description :)')];
 
-  const addProject = (title, description) => projects.push(project(title, description));
+  const addProject = (project) => projects.push(project);
 
   const removeProject = (id) => {
     const i = projects.findIndex(element => element.getId() === id);
