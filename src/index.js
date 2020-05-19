@@ -66,6 +66,41 @@ const todosForm = (project) => `
 </div>
 `;
 
+const addTodoForm = () => `
+<div class="d-flex justify-content-center m-4" id="add-todo">
+  <div class="card" style="width: 25rem;">
+    <div class="card-header d-flex justify-content-center">
+      Add new todo
+    </div>
+    <div class="card-body">
+    <form>
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" class="form-control" id="title">
+      </div>
+      <div class="form-group">
+        <label for="description">description</label>
+        <textarea class="form-control" id="description" rows="2"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="notes">notes</label>
+        <textarea class="form-control" id="notes" rows="2"></textarea>
+      </div>
+      <select class="custom-select">
+        <option value="normal">normal</option>
+        <option value="high">high</option>
+        <option value="low">low</option>
+      </select>
+      <div class="form-group">
+        <label for="dueDate">Due Date</label>
+        <input type="date" class="form-control" id="dueDate">
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    </div>
+  </div>
+</div>
+`;
 let currentUser = window.localStorage.getItem('user');
 
 if (!currentUser) {
@@ -87,6 +122,7 @@ if (!currentUser) {
   const project = currentUser.getProjects()[0];
   document.querySelector('#projects').insertAdjacentHTML('afterend', todosForm(project));
 
+  document.querySelector('.new-todo-form').insertAdjacentHTML('beforeend', addTodoForm());
 
 
   document.querySelector('.custom-select').addEventListener('change', (e) => {
