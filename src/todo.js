@@ -1,8 +1,8 @@
 import uid from 'uid';
 
-const todo = (title, description, dueDate, priority, notes) => {
-  let status = 0;
+const todo = (title, description, dueDate, priority, notes, status = 0) => {
   const id = uid(32);
+
   const getStatus = () => {
     if (status === 0) {
       return 'To Do';
@@ -13,10 +13,7 @@ const todo = (title, description, dueDate, priority, notes) => {
     return 'Done';
   };
 
-  const updateStatus = (stat) => {
-    status = stat;
-  };
-
+  const getStatusInt = () => status;
   const getId = () => id;
 
   return {
@@ -25,9 +22,10 @@ const todo = (title, description, dueDate, priority, notes) => {
     dueDate,
     priority,
     notes,
+    status,
     getStatus,
-    updateStatus,
     getId,
+    getStatusInt,
   };
 };
 

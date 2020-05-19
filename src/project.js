@@ -18,7 +18,7 @@ const project = (title, description) => {
 
   const checkOverdues = () => {
     todoArr.forEach(e => {
-      if (e.getStatus() === 0 && e.dueDate < Date.now()) {
+      if (e.getStatus() === 'To Do' && Date.parse(e.dueDate) < Date.now()) {
         e.updateStatus(1);
       }
     });

@@ -20,6 +20,7 @@ const load = () => {
         tod.dueDate,
         tod.priority,
         tod.notes,
+        tod.status,
       )));
       oldUser.addProject(temP);
     } else {
@@ -29,9 +30,11 @@ const load = () => {
         tod.dueDate,
         tod.priority,
         tod.notes,
+        tod.status,
       )));
     }
   });
+  oldUser.getProjects().forEach(project => project.checkOverdues());
   return oldUser;
 };
 

@@ -1,3 +1,5 @@
+/* eslint-disable func-names */
+/* eslint-disable no-nested-ternary */
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import './style.css';
@@ -44,12 +46,22 @@ const todoForm = (td) => `
     <h6>
       ${td.title}
     </h6>
-    <span class="p-2 badge badge-pill badge-${ td.getStatus() === 0 ? 'primary' : (td.getStatus() === 1 ? 'danger' : 'success')}">${td.dueDate}</span>
+    <div class="d-flex align-items-center">
+      <span class="p-1 mr-1 badge badge-${td.getStatusInt() === 0 ? 'primary' : (td.getStatusInt() === 1 ? 'danger' : 'success')}">${td.getStatus()}</span>
+      <span class="p-1 badge badge-${td.getStatusInt() === 0 ? 'primary' : (td.getStatusInt() === 1 ? 'danger' : 'success')}">${td.dueDate}</span>
+    </div>
   </div>
   <div>
     ${td.description}
   </div>
   <small class="font-italic">${td.notes}</small>
+  <div class="d-flex justify-content-around align-items-center">
+    <span class="p-1 badge badge-${td.priority === 'high' ? 'danger' : (td.priority === 'normal' ? 'info' : 'success')}">Priority: ${td.priority}</span>
+    <div class="form-group form-check mb-0">
+      <input type="checkbox" ${td.getStatusInt() === 2 ? 'checked' : ''} class="form-check-input" data-id="${td.getId()}" id="complet">
+      <label class="form-check-label" for="complet">completed</label>
+    </div>
+  </div>
 </div>
 `;
 
@@ -124,7 +136,25 @@ const addTodoForm = () => `
   </div>
 </div>
 `;
+
 let currentUser = window.localStorage.getItem('user');
+
+const addCompletEvent = (currentProject, user) => {
+  Array.from(document.querySelectorAll('#complet')).forEach((check) => {
+    check.addEventListener('click', function () {
+      const selectedTodo = currentProject.getTodos().find(td => td.getId() === this.dataset.id);
+      console.log(selectedTodo.status);
+      if (selectedTodo && this.checked) {
+        selectedTodo.status = 2;
+      } else {
+        selectedTodo.status = 0;
+      }
+      console.log(selectedTodo.status);
+      console.log(user);
+      save(user);
+    });
+  });
+};
 
 if (!currentUser) {
   document.querySelector('.content').insertAdjacentHTML('afterbegin', userForm());
@@ -142,9 +172,9 @@ if (!currentUser) {
 } else {
   currentUser = load();
   document.querySelector('.content').insertAdjacentHTML('afterbegin', projectFrom(currentUser.getProjects()));
-  const project = currentUser.getProjects()[0];
-  document.querySelector('#projects').insertAdjacentHTML('afterend', todosForm(project));
   let selectedProject = currentUser.getProjects()[0];
+  document.querySelector('#projects').insertAdjacentHTML('afterend', todosForm(selectedProject));
+  addCompletEvent(selectedProject, currentUser);
   document.querySelector('.new-todo-form').insertAdjacentHTML('beforeend', addNewProject());
   document.querySelector('.new-todo-form').insertAdjacentHTML('beforeend', addTodoForm());
   document.querySelector('#submit-todo').addEventListener('click', (e) => {
@@ -158,6 +188,7 @@ if (!currentUser) {
     selectedProject.addTodo(tempTodo);
     document.querySelector('#todos .card-body').insertAdjacentHTML('beforeend', todoForm(tempTodo));
     save(currentUser);
+    addCompletEvent(selectedProject, currentUser);
   });
   document.querySelector('#submit-project').addEventListener('click', (e) => {
     e.preventDefault();
@@ -177,6 +208,7 @@ if (!currentUser) {
       const project = currentUser.getProjects().find(prt => prt.getId() === e.target.value);
       document.querySelector('#projects').insertAdjacentHTML('afterend', todosForm(project));
       selectedProject = project;
+      addCompletEvent(selectedProject, currentUser);
     }
   });
 }
