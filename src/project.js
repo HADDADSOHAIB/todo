@@ -1,5 +1,5 @@
 import uid from 'uid';
-import todo from './todo';
+// import todo from './todo';
 
 const project = (title, description) => {
   let todoArr = [];

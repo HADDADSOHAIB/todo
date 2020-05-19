@@ -13,7 +13,6 @@ const todo = (title, description, dueDate, priority, notes, status = 0) => {
     return 'Done';
   };
 
-  const getStatusInt = () => status;
   const getId = () => id;
 
   return {
@@ -25,7 +24,6 @@ const todo = (title, description, dueDate, priority, notes, status = 0) => {
     status,
     getStatus,
     getId,
-    getStatusInt,
   };
 };
 
