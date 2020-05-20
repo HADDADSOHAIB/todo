@@ -30,6 +30,10 @@ const project = (title, description) => {
     todoArr = todos;
   };
 
+  const deleteTodo = (todo) => {
+    todoArr.splice(todoArr.indexOf(todo), 1);
+  };
+
   const getId = () => id;
 
   return {
@@ -41,6 +45,7 @@ const project = (title, description) => {
     setTodos,
     getId,
     getTodos,
+    deleteTodo,
   };
 };
 

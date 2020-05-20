@@ -18,16 +18,40 @@ import {
 
 let currentUser = window.localStorage.getItem('user');
 
+const findTodo = (id, currentProject) => {
+  const returnMe = currentProject.getTodos().find(td => td.getId() === id);
+  return returnMe;
+};
 const addCompletEvent = (currentProject, user) => {
-  Array.from(document.querySelectorAll('#complet')).forEach((check) => {
-    check.addEventListener('click', function () {
-      const selectedTodo = currentProject.getTodos().find(td => td.getId() === this.dataset.id);
+  const temptodos = Array.from(document.querySelectorAll('.todo'));
+  temptodos.forEach((check) => {
+    const tempid = check.dataset.id;
+    check.querySelector('#complet').addEventListener('click', function () {
+      const selectedTodo = findTodo(tempid, currentProject);
       if (selectedTodo && this.checked) {
         selectedTodo.status = 2;
       } else {
         selectedTodo.status = 0;
       }
       save(user);
+    });
+    check.querySelector('.delete').addEventListener('click', () => {
+      const selectedTodo = findTodo(tempid, currentProject);
+      currentProject.deleteTodo(selectedTodo);
+      save(user);
+      this.parentElement.parentElement.removeChild(this);
+    });
+    check.querySelector('.edit').addEventListener('click', function () {
+      this.parentElement.firstElementChild.readOnly = false;
+      this.parentElement.firstElementChild.select();
+      this.parentElement.firstElementChild.addEventListener('keypress', (e) => {
+        if (e.code === 'Enter') {
+          const selectedTodo = findTodo(tempid, currentProject);
+          selectedTodo.description = this.parentElement.firstElementChild.value;
+          save(user);
+          this.parentElement.firstElementChild.readOnly = true;
+        }
+      });
     });
   });
 };

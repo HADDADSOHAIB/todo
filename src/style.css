@@ -1,7 +1,19 @@
-/* .high {
-  border: crimson 2px solid;
+.edit, .delete {
+	border-style: none;
+	
+	box-shadow: none;
 }
 
-.low {
-  border: blueviolet 2px solid;
-} */
+.edit {
+  border-color: #007bff;
+}
+
+.delete {
+  border-color: #dc3545;
+}
+
+.inputEditable {
+	padding: 0;
+	border-style: none;
+	cursor: default;
+}
