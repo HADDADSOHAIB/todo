@@ -1,6 +1,13 @@
 # To-Do list
 
-To-Do web application.
+Javascript project involving concepts of OOP design implemented on managing a list of To-Do.
+Original specifications for this project can be found [here](https://www.theodinproject.com/courses/javascript/lessons/todo-list).
+<br>
+<br>
+<strong>Current functions implemented involves: </strong>
+* Creating projects that hold ToDos
+* Creating and deleting ToDos
+* Editing Title-Notes-Description of ToDos
 
 ## Live demo
 
@@ -19,7 +26,6 @@ after that you need to run the bundler
 * `$ npm install`
 
 and open your files with live server or similar
-
 
 ## Built With
 

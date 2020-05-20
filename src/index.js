@@ -39,9 +39,8 @@ const addCompletEvent = (currentProject, user) => {
       const selectedTodo = findTodo(tempid, currentProject);
       currentProject.deleteTodo(selectedTodo);
       save(user);
-      window.reload();
+      window.location.href = '/';
     });
-    console.log('wololo');
     check.querySelector('.edit').addEventListener('click', () => {
       const elem = check.querySelectorAll('.inputEditable');
       const values = Array.from(elem);
@@ -55,7 +54,6 @@ const addCompletEvent = (currentProject, user) => {
             selectedTodo.notes = values[2].value;
             selectedTodo.description = values[1].value;
             e.classList.add('inputEditable');
-            e.readOnly = true;
             save(user);
           }
         });
