@@ -35,14 +35,14 @@ const projectFrom = (projects) => `
 
 const todoForm = (td) => `
 <hr>
-
 <div class="d-flex flex-column ${td.priority} p-3 todo "data-id="${td.getId()}">
 <div class='mb-1'>
   <button class='delete badge badge-danger p-1 pl-0'>Delete</button>
+  <button class='edit badge badge-primary p-1' id=''>Edit</button>
 </div>
   <div class="d-flex justify-content-between">
     <h6>
-      ${td.title}
+      <input type='text' class='inputEditable' value="${td.title}" readonly='true'>
     </h6>
     <div class="d-flex align-items-center">
       <span class="p-1 mr-1 badge badge-${td.status === 0 ? 'primary' : (td.status === 1 ? 'danger' : 'success')}">${td.getStatus()}</span>
@@ -51,9 +51,8 @@ const todoForm = (td) => `
   </div>
   <div class='d-flex justify-content-between'>
      <input type='text' class='inputEditable' value="${td.description}" readonly='true'>
-     <button class='edit badge badge-primary p-1' id=''>Edit</button>
   </div>
-  <small class="font-italic">${td.notes}</small>
+  <small class="font-italic"><input type='text' class='inputEditable' value="${td.notes}" readonly='true'></small>
   <div class="d-flex justify-content-around align-items-center">
     <span class="p-1 badge badge-${td.priority === 'high' ? 'danger' : (td.priority === 'normal' ? 'info' : 'success')}">Priority: ${td.priority}</span>
     <div class="form-group form-check mb-0">

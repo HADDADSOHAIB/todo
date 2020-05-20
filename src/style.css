@@ -17,3 +17,12 @@
 	border-style: none;
 	cursor: default;
 }
+
+.input-editing {
+	border-color: yellow;
+}
+
+.input-edited {
+	border-color: greenyellow;
+}
+

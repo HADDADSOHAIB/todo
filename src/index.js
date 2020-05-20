@@ -39,18 +39,26 @@ const addCompletEvent = (currentProject, user) => {
       const selectedTodo = findTodo(tempid, currentProject);
       currentProject.deleteTodo(selectedTodo);
       save(user);
-      this.parentElement.parentElement.removeChild(this);
+      window.reload();
     });
-    check.querySelector('.edit').addEventListener('click', function () {
-      this.parentElement.firstElementChild.readOnly = false;
-      this.parentElement.firstElementChild.select();
-      this.parentElement.firstElementChild.addEventListener('keypress', (e) => {
-        if (e.code === 'Enter') {
-          const selectedTodo = findTodo(tempid, currentProject);
-          selectedTodo.description = this.parentElement.firstElementChild.value;
-          save(user);
-          this.parentElement.firstElementChild.readOnly = true;
-        }
+    console.log('wololo');
+    check.querySelector('.edit').addEventListener('click', () => {
+      const elem = check.querySelectorAll('.inputEditable');
+      const values = Array.from(elem);
+      elem.forEach((e) => {
+        e.readOnly = false;
+        e.classList.remove('inputEditable');
+        e.addEventListener('keypress', (ee) => {
+          if (ee.code === 'Enter') {
+            const selectedTodo = findTodo(tempid, currentProject);
+            selectedTodo.title = values[0].value;
+            selectedTodo.notes = values[2].value;
+            selectedTodo.description = values[1].value;
+            e.classList.add('inputEditable');
+            e.readOnly = true;
+            save(user);
+          }
+        });
       });
     });
   });
