@@ -1,0 +1,28 @@
+.edit, .delete {
+	border-style: none;
+	
+	box-shadow: none;
+}
+
+.edit {
+  border-color: #007bff;
+}
+
+.delete {
+  border-color: #dc3545;
+}
+
+.inputEditable {
+	padding: 0;
+	border-style: none;
+	cursor: default;
+}
+
+.input-editing {
+	border-color: yellow;
+}
+
+.input-edited {
+	border-color: greenyellow;
+}
+
